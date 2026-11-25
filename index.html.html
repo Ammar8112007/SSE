@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Butterfly Sewar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Great Vibes, Playfair Display, and Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Poppins"', 'sans-serif'],
+                    },
+                    colors: {
+                        blush: {
+                            50: '#FFF8F9',
+                            100: '#FFEFF2',
+                            200: '#FFDDE4',
+                            300: '#FFC0CE',
+                            400: '#FF94AC',
+                            500: '#F46284',
+                        },
+                        rosegold: {
+                            300: '#E5B8AD',
+                            400: '#D49A89',
+                            500: '#B76E79',
+                            600: '#9E535E',
+                        },
+                        cream: '#FDFBF7',
+                    },
+                    animation: {
+                        'float-slow': 'floatSlow 6s ease-in-out infinite',
+                        'pulse-soft': 'pulseSoft 2.5s infinite',
+                        'heartbeat': 'heartbeat 1.6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        floatSlow: {
+                            '0%, 100%': {transform: 'translateY(0px)'},
+                            '50%': {transform: 'translateY(-10px)'},
+                        },
+                        pulseSoft: {
+                            '0%, 100%': {boxShadow: '0 0 0 0 rgba(212, 154, 137, 0.45)'},
+                            '50%': {boxShadow: '0 0 0 18px rgba(212, 154, 137, 0)'},
+                        },
+                        heartbeat: {
+                            '0%, 100%': {transform: 'scale(1)'},
+                            '14%': {transform: 'scale(1.18)'},
+                            '28%': {transform: 'scale(1)'},
+                            '42%': {transform: 'scale(1.14)'},
+                            '70%': {transform: 'scale(1)'},
+                        },
+                        fadeInUp: {
+                            '0%': {opacity: '0', transform: 'translateY(24px)'},
+                            '100%': {opacity: '1', transform: 'translateY(0)'},
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom soft scrollbars & delicate aesthetic accents */
+        body {
+            background: radial-gradient(circle at top left, #FFF5F7 0%, #FDFBF7 45%, #FFEFF3 100%);
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts Background Container */
+        #hearts-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -40px;
+            opacity: 0;
+            animation: riseUp linear forwards;
+            user-select: none;
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(0) scale(0.7) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.65;
+            }
+
+            85% {
+                opacity: 0.45;
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1.15) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        /* Burst Particles on Button Click */
+        .burst-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+            animation: burstOut 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes burstOut {
+            0% {
+                transform: translate(0, 0) scale(0.4);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Elegant Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(229, 184, 173, 0.45);
+            box-shadow: 0 20px 50px -15px rgba(183, 110, 121, 0.16);
+        }
+
+        /* Rose Gold Shimmer Button */
+        .btn-rosegold {
+            background: linear-gradient(135deg, #D49A89 0%, #B76E79 50%, #D49A89 100%);
+            background-size: 200% auto;
+            transition: all 0.4s ease;
+        }
+
+        .btn-rosegold:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -6px rgba(183, 110, 121, 0.55);
+        }
+
+        .btn-rosegold:active {
+            transform: translateY(0px) scale(0.98);
+        }
+
+        /* Hide scrollbars cleanly where needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen text-stone-700 font-sans antialiased selection:bg-blush-200 selection:text-rosegold-600 relative">
+
+    <!-- Floating Animated Hearts Canvas/Layer -->
+    <div id="hearts-bg" aria-hidden="true"></div>
+
+    <!-- Toast Notification Box -->
+    <div id="toast-box"
+        class="fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-300 pointer-events-none">
+        <div
+            class="bg-white/95 border border-rosegold-300 text-rosegold-600 px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2.5 text-sm font-medium">
+            <i data-lucide="sparkles" class="w-4 h-4 text-rosegold-500"></i>
+            <span id="toast-message">Updated with love!</span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+
+        <!-- =========================================================
+             1. LANDING VIEW
+        ========================================================== -->
+        <section id="landing-view" class="w-full max-w-lg mx-auto text-center animate-fade-in-up">
+            <div class="glass-card rounded-[2.25rem] p-7 sm:p-10 relative overflow-hidden">
+                <!-- Subtle decorative corner glow -->
+                <div
+                    class="absolute -top-16 -right-16 w-40 h-40 bg-blush-200/50 rounded-full blur-2xl pointer-events-none">
+                </div>
+                <div
+                    class="absolute -bottom-16 -left-16 w-40 h-40 bg-rosegold-300/30 rounded-full blur-2xl pointer-events-none">
+                </div>
+
+                <!-- Delicate Top Eyebrow -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blush-100/80 border border-blush-200 text-rosegold-600 text-xs font-medium tracking-widest uppercase mb-6">
+                    <span>✦</span>
+                    <span>A Little Piece of My Heart</span>
+                    <span>✦</span>
+                </div>
+
+                <!-- Romantic Framed Photo Centerpiece with Pulsing Heart -->
+                <div class="relative w-52 h-52 sm:w-60 sm:h-60 mx-auto mb-7 group animate-float-slow">
+                    <!-- Outer Soft Rotating/Glowing Halo -->
+                    <div
+                        class="absolute -inset-2.5 rounded-full bg-gradient-to-tr from-rosegold-400 via-blush-300 to-rosegold-300 opacity-75 blur-sm animate-pulse-soft">
+                    </div>
+
+                    <!-- Circular Rose Gold Frame -->
+                    <div
+                        class="relative w-full h-full rounded-full p-1.5 bg-gradient-to-b from-rosegold-300 via-white to-rosegold-400 shadow-xl overflow-hidden">
+                        <img id="landing-photo"
+                            src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=85"
+                            onerror="this.src='https://placehold.co/500x500/FFEFF2/B76E79?text=My+Butterfly+Sewar'"
+                            alt="Romantic Photo Frame"
+                            class="w-full h-full object-cover rounded-full transition-transform duration-700 group-hover:scale-105">
+
+                        <!-- Subtle Photo Swap Overlay Button -->
+                        <label for="photo-upload" title="Change Photo"
+                            class="absolute inset-0 bg-stone-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full flex flex-col items-center justify-center text-white cursor-pointer backdrop-blur-[2px]">
+                            <i data-lucide="camera" class="w-6 h-6 mb-1"></i>
+                            <span class="text-xs font-medium tracking-wide">Change Photo</span>
+                        </label>
+                        <input type="file" id="photo-upload" accept="image/*" class="hidden">
+                    </div>
+
+                    <!-- Pulsing Heart Badge at Bottom of Frame -->
+                    <div
+                        class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-13 h-13 p-3 rounded-full bg-white shadow-lg border border-blush-200 flex items-center justify-center">
+                        <svg class="w-7 h-7 text-rose-500 animate-heartbeat fill-rose-500 drop-shadow-sm"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Heartfelt Dedication Title -->
+                <h1 class="font-script text-4xl sm:text-5xl text-rosegold-600 mb-2 leading-tight">
+                    For My Butterfly Sewar
+                </h1>
+
+                <!-- Sub-headline / Sweet English Dedication -->
+                <p
+                    class="font-serif italic text-stone-600 text-base sm:text-lg leading-relaxed max-w-md mx-auto mb-8 px-2">
+                    “To Sewar, my sweet butterfly who brings magic, grace, and light to my skies every single day…”
+                </p>
+
+                <!-- Glowing "Open Surprise" Button -->
+                <div class="flex flex-col items-center gap-3">
+                    <button id="open-surprise-btn" type="button"
+                        class="btn-rosegold text-white font-medium text-base sm:text-lg px-8 py-4 rounded-full shadow-lg flex items-center justify-center gap-3 cursor-pointer group focus:outline-none focus:ring-4 focus:ring-blush-300">
+                        <span>Open Your Surprise</span>
+                        <svg class="w-5 h-5 fill-white transition-transform duration-300 group-hover:scale-125"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </button>
+
+                    <!-- Discreet Photo Customization Hint for Mobile/Desktop -->
+                    <button type="button" onclick="document.getElementById('photo-upload').click()"
+                        class="text-xs text-rosegold-500/80 hover:text-rosegold-600 underline underline-offset-4 transition-colors mt-1 cursor-pointer">
+                        Tap here to personalize the photo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             2. INNER REVEAL VIEW (Hidden until button click)
+        ========================================================== -->
+        <section id="reveal-view" class="hidden w-full max-w-4xl mx-auto">
+            <div class="glass-card rounded-[2.25rem] p-6 sm:p-10 relative overflow-hidden">
+
+                <!-- Top Navigation / Back & Controls -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-6 mb-6 border-b border-blush-200/70">
+                    <button id="back-btn" type="button"
+                        class="inline-flex items-center gap-2 text-sm font-medium text-rosegold-600 hover:text-rosegold-500 bg-blush-100/80 hover:bg-blush-200/70 px-4 py-2 rounded-full transition-colors cursor-pointer">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span>Back to Cover</span>
+                    </button>
+
+                    <div class="flex items-center gap-2 text-xs text-rosegold-500 font-medium">
+                        <span class="inline-block w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+                        <span>Dedicated to My Butterfly Sewar</span>
+                    </div>
+                </div>
+
+                <!-- Romantic Dedication Banner -->
+                <div class="text-center max-w-2xl mx-auto mb-8">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blush-100 text-rose-500 mb-3 shadow-inner">
+                        <span class="text-xl">🦋</span>
+                    </div>
+                    <h2 class="font-script text-4xl sm:text-5xl text-rosegold-600 mb-3">
+                        To My Butterfly Sewar
+                    </h2>
+                    <p class="font-serif text-stone-600 text-sm sm:text-base leading-relaxed">
+                        Like a delicate butterfly, Sewar, you bring grace, color, and light into every moment. Wherever life goes, you remain the most wonderful part of my world.
+                    </p>
+                </div>
+
+                <!-- PDF Viewer Toolbar -->
+                <div
+                    class="bg-blush-50/90 border border-blush-200 rounded-2xl p-3 sm:p-4 mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-2.5">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-rosegold-500/15 text-rosegold-600 flex items-center justify-center">
+                            <i data-lucide="file-heart" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 id="pdf-title" class="text-sm font-semibold text-stone-800">DBA Phase2.pdf</h3>
+                            <p id="pdf-subtitle" class="text-xs text-stone-500">Database Systems Administration - Phase 2 &bull; Ready to read or download</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Upload Custom Local PDF Button -->
+                        <label for="pdf-upload"
+                            class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-rosegold-600 bg-white hover:bg-blush-100 border border-rosegold-300 px-3.5 py-2 rounded-xl shadow-sm transition-all cursor-pointer">
+                            <i data-lucide="upload" class="w-4 h-4"></i>
+                            <span>Load Your PDF</span>
+                        </label>
+                        <input type="file" id="pdf-upload" accept="application/pdf" class="hidden">
+
+                        <!-- Download Current PDF Button -->
+                        <a id="download-pdf-btn" href="DBA%20Phase2.pdf" download="DBA Phase2.pdf"
+                            class="btn-rosegold inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-white px-4 py-2 rounded-xl shadow-sm cursor-pointer">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive PDF Display Container -->
+                <div
+                    class="relative w-full rounded-2xl overflow-hidden border-2 border-blush-200 bg-white shadow-inner">
+                    <!-- Embedded PDF Iframe -->
+                    <iframe id="pdf-frame" title="PDF Viewer"
+                        class="w-full h-[520px] sm:h-[620px] bg-cream"></iframe>
+
+                    <!-- Graceful Fallback Card (Shown if browser blocks inline PDF iframe on mobile) -->
+                    <div id="pdf-fallback-card" class="hidden p-6 sm:p-10 bg-cream text-center">
+                        <div
+                            class="max-w-lg mx-auto border border-rosegold-300/60 rounded-2xl p-6 sm:p-8 bg-white shadow-sm">
+                            <p class="font-script text-3xl text-rosegold-600 mb-4">DBA Phase2.pdf</p>
+                            <p class="font-serif text-stone-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Tap the button below to open or save the PDF file directly on your device.
+                            </p>
+                            <a id="fallback-download-link" href="DBA%20Phase2.pdf" download="DBA Phase2.pdf"
+                                class="btn-rosegold inline-flex items-center gap-2 text-white text-sm font-medium px-5 py-2.5 rounded-full">
+                                <i data-lucide="file-down" class="w-4 h-4"></i>
+                                <span>Open / Save PDF File</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sweet Footer Note -->
+                <div class="mt-6 text-center text-xs text-stone-400 flex items-center justify-center gap-1.5">
+                    <span>Made with</span>
+                    <span class="text-rose-400">♥</span>
+                    <span>for my butterfly Sewar</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // State management
+        let currentPdfBlobUrl = null;
+
+        // Show subtle non-blocking toast notification
+        function showToast(message) {
+            const toastBox = document.getElementById('toast-box');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+            toastBox.classList.remove('translate-x-full', 'opacity-0');
+            setTimeout(() => {
+                toastBox.classList.add('translate-x-full', 'opacity-0');
+            }, 3200);
+        }
+
+        // 1. Floating Background Hearts Generator
+        function startFloatingHearts() {
+            const container = document.getElementById('hearts-bg');
+            const heartSymbols = ['♥', '♡', '❤', '✨', '🦋'];
+            const colors = ['#F46284', '#D49A89', '#FF94AC', '#B76E79', '#FFC0CE'];
+
+            function spawnHeart() {
+                const heart = document.createElement('span');
+                heart.className = 'floating-heart';
+                const isButterfly = Math.random() < 0.14;
+                heart.textContent = isButterfly ? '🦋' : heartSymbols[Math.floor(Math.random() * 3)];
+
+                const leftPos = Math.random() * 100;
+                const size = isButterfly ? (16 + Math.random() * 10) : (12 + Math.random() * 18);
+                const duration = 7 + Math.random() * 7;
+
+                heart.style.left = `${leftPos}vw`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.animationDuration = `${duration}s`;
+
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }
+
+            // Spawn initial batch softly
+            for (let i = 0; i < 12; i++) {
+                setTimeout(spawnHeart, i * 400);
+            }
+            // Continuous gentle spawning
+            setInterval(spawnHeart, 900);
+        }
+
+        // 2. Heart & Petal Burst Effect on Button Click
+        function triggerHeartBurst(x, y) {
+            const items = ['♥', '💖', '🦋', '🌸', '✨'];
+            for (let i = 0; i < 28; i++) {
+                const particle = document.createElement('span');
+                particle.className = 'burst-particle text-lg sm:text-xl';
+                particle.textContent = items[Math.floor(Math.random() * items.length)];
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.color = i % 2 === 0 ? '#F46284' : '#B76E79';
+
+                const angle = (Math.PI * 2 * i) / 28 + (Math.random() * 0.4);
+                const velocity = 90 + Math.random() * 180;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 40;
+                const rot = (Math.random() - 0.5) * 360;
+
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                particle.style.setProperty('--rot', `${rot}deg`);
+
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1450);
+            }
+        }
+
+        // 3. Load Local PDF File by Default
+        function loadDefaultPDF() {
+            const pdfFileName = 'DBA Phase2.pdf';
+            const encodedUrl = encodeURI(pdfFileName);
+
+            const pdfFrame = document.getElementById('pdf-frame');
+            const downloadBtn = document.getElementById('download-pdf-btn');
+            const fallbackLink = document.getElementById('fallback-download-link');
+            const titleEl = document.getElementById('pdf-title');
+            const subtitleEl = document.getElementById('pdf-subtitle');
+
+            pdfFrame.src = `${encodedUrl}#toolbar=1&navpanes=0&view=FitH`;
+            downloadBtn.href = encodedUrl;
+            downloadBtn.download = pdfFileName;
+            fallbackLink.href = encodedUrl;
+            fallbackLink.download = pdfFileName;
+
+            titleEl.textContent = pdfFileName;
+            subtitleEl.textContent = 'Database Systems Administration - Phase 2 • Ready to read or download';
+        }
+
+        // Helper to load an uploaded Blob into the iframe and download buttons
+        function setPdfSource(blob, fileName, subtitleText) {
+            if (currentPdfBlobUrl) {
+                URL.revokeObjectURL(currentPdfBlobUrl);
+            }
+            currentPdfBlobUrl = URL.createObjectURL(blob);
+
+            const pdfFrame = document.getElementById('pdf-frame');
+            const downloadBtn = document.getElementById('download-pdf-btn');
+            const fallbackLink = document.getElementById('fallback-download-link');
+            const titleEl = document.getElementById('pdf-title');
+            const subtitleEl = document.getElementById('pdf-subtitle');
+
+            pdfFrame.src = `${currentPdfBlobUrl}#toolbar=1&navpanes=0&view=FitH`;
+            downloadBtn.href = currentPdfBlobUrl;
+            downloadBtn.download = fileName;
+            fallbackLink.href = currentPdfBlobUrl;
+            fallbackLink.download = fileName;
+
+            titleEl.textContent = fileName;
+            subtitleEl.textContent = subtitleText;
+        }
+
+        // 4. Event Listeners
+        window.addEventListener('DOMContentLoaded', () => {
+            startFloatingHearts();
+            loadDefaultPDF();
+
+            const landingView = document.getElementById('landing-view');
+            const revealView = document.getElementById('reveal-view');
+            const openBtn = document.getElementById('open-surprise-btn');
+            const backBtn = document.getElementById('back-btn');
+            const photoUpload = document.getElementById('photo-upload');
+            const landingPhoto = document.getElementById('landing-photo');
+            const pdfUpload = document.getElementById('pdf-upload');
+
+            // Transition from Landing View to Inner Reveal View
+            openBtn.addEventListener('click', (e) => {
+                const rect = openBtn.getBoundingClientRect();
+                const centerX = e.clientX || (rect.left + rect.width / 2);
+                const centerY = e.clientY || (rect.top + rect.height / 2);
+
+                triggerHeartBurst(centerX, centerY);
+
+                landingView.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+                landingView.style.opacity = '0';
+                landingView.style.transform = 'scale(0.95) translateY(-12px)';
+
+                setTimeout(() => {
+                    landingView.classList.add('hidden');
+                    revealView.classList.remove('hidden');
+                    revealView.classList.add('animate-fade-in-up');
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }, 420);
+            });
+
+            // Return back to Landing View
+            backBtn.addEventListener('click', () => {
+                revealView.classList.add('hidden');
+                revealView.classList.remove('animate-fade-in-up');
+
+                landingView.classList.remove('hidden');
+                // Trigger reflow
+                void landingView.offsetWidth;
+                landingView.style.opacity = '1';
+                landingView.style.transform = 'scale(1) translateY(0)';
+            });
+
+            // Swap Landing Photo with user's chosen picture
+            photoUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        landingPhoto.src = event.target.result;
+                        showToast('Your photo has been framed with love! ♥');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Swap PDF with user's own local PDF file
+            pdfUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file && file.type === 'application/pdf') {
+                    setPdfSource(file, file.name, 'Custom Uploaded PDF • Ready to view');
+                    document.getElementById('pdf-frame').classList.remove('hidden');
+                    document.getElementById('pdf-fallback-card').classList.add('hidden');
+                    showToast(`Loaded "${file.name}"!`);
+                } else if (file) {
+                    showToast('Please select a valid PDF file.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
